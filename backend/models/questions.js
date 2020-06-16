@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/trivia_questions');
+mongoose.connect('mongodb://localhost/trivia_questions', { useNewUrlParser: true });
 
 var questionSchema = new Schema({
   description: {

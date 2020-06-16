@@ -1,10 +1,10 @@
 import React from 'react';
-import Choices from './Choices';
+import Main from './Main';
 
 const Components = () => {
     return <>
     <header className="App-header">
-        <Choices />
+        <Main />
     </header>
     </>
 }
