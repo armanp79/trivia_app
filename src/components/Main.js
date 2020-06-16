@@ -5,26 +5,27 @@ class Main extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            loading : true
+            loading : true,
+            data : null
         };
     }
     
     async componentDidMount() {
         const url = 'http://localhost:3000/api/getQuestion';
         const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
+        this.data = await response.json();
+        console.log(this.data);
     }
 
     displayQuestion () {
         return (
-            data.description
+            this.data.description
         )
     }
 
     displayOptions () {
         return (
-            data.options
+            this.data.options
         )
     }
 
