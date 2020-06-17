@@ -13,6 +13,13 @@ class Main extends Component {
             user_choice_check : false,
             submit_clicked : false
         };
+
+        this.submitRef = React.createRef();
+        this.optionRef1 = React.createRef();
+        this.optionRef2 = React.createRef();
+        this.optionRef3 = React.createRef();
+        this.optionRef4 = React.createRef();
+
         this.DisplayQuestion = this.DisplayQuestion.bind(this)
         this.DisplayOptions = this.DisplayOptions.bind(this)
         this.DisplaySubmit = this.DisplaySubmit.bind(this)
@@ -43,6 +50,12 @@ class Main extends Component {
 
     handleSubmit () {
         this.setState({submit_clicked : true})
+        this.submitRef.current.setAttribute("disabled", "disabled");
+        this.optionRef1.current.setAttribute("disabled", "disabled");
+        this.optionRef2.current.setAttribute("disabled", "disabled");
+        this.optionRef3.current.setAttribute("disabled", "disabled");
+        this.optionRef4.current.setAttribute("disabled", "disabled");
+        
     }
 
     handleNext () {
@@ -50,6 +63,11 @@ class Main extends Component {
             return {current_q: state.current_q + 1, user_choice_check : false,
                 submit_clicked : false};
           });
+          this.submitRef.current.removeAttribute("disabled");
+          this.optionRef1.current.removeAttribute("disabled");
+          this.optionRef2.current.removeAttribute("disabled");
+          this.optionRef3.current.removeAttribute("disabled");
+          this.optionRef4.current.removeAttribute("disabled");
     }
 
 
@@ -67,22 +85,27 @@ class Main extends Component {
     DisplayOptions () {
         return (
             <div>
-                <button className="answer1" onClick={() => this.handleChoice(0)}>
-                {questions_array[this.state.current_q]['choices'][0]}
-                </button>
+                <div className = "a1">
+                    <button ref = {this.optionRef1} className="choicesbtn" onClick={() => this.handleChoice(0)}>
+                    {questions_array[this.state.current_q]['choices'][0]}
+                    </button>
+                
 
-                <button className="answer2" onClick={() => this.handleChoice(1)}>
-                {questions_array[this.state.current_q]['choices'][1]}
-                </button>
+                    <button ref = {this.optionRef2} className="choicesbtn" onClick={() => this.handleChoice(1)}>
+                    {questions_array[this.state.current_q]['choices'][1]}
+                    </button>
+                </div>
 
-                <button className="answer1" onClick={() => this.handleChoice(2)}>
-                {questions_array[this.state.current_q]['choices'][2]}
-                </button>
+                <div className = "a2">
+                    <button ref = {this.optionRef3} className="choicesbtn" onClick={() => this.handleChoice(2)}>
+                    {questions_array[this.state.current_q]['choices'][2]}
+                    </button>
 
-                <button className="answer2" onClick={() => this.handleChoice(3)}>
-                {questions_array[this.state.current_q]['choices'][3]}
-                </button>
+                    <button ref = {this.optionRef4} className="choicesbtn" onClick={() => this.handleChoice(3)}>
+                    {questions_array[this.state.current_q]['choices'][3]}
+                    </button>
 
+                </div>
             </div>
             
         )
@@ -93,7 +116,7 @@ class Main extends Component {
     DisplaySubmit () {
         return (
             <div>
-                <button className="submit" onClick={() => this.handleSubmit()}>
+                <button ref = {this.submitRef} className="submit" onClick={() => this.handleSubmit()}>
                 Submit Answer
                 </button>
             </div>
@@ -103,7 +126,7 @@ class Main extends Component {
     DisplayNext() {
         return (
             <div>
-                <button className="next" onClick={() => this.handleNext()}>
+                <button className="submit" onClick={() => this.handleNext()}>
                 Next Question
                 </button>
             </div>
@@ -122,8 +145,8 @@ class Main extends Component {
                 this.state.score += 1
                 return (
                     <div className = "answer">
-                        Correct!
-                        Final Score: {this.state.score}
+                        <h4>Correct!</h4>
+                        <h4>Final Score: {this.state.score}</h4>
                     </div>
                 )
             }
@@ -132,7 +155,7 @@ class Main extends Component {
                 this.state.score += 1
                 return (
                 <div className = "answer"> 
-                    Correct!
+                    <h4>Correct!</h4>
                     <this.DisplayNext />
                 </div>)
             }
@@ -143,15 +166,15 @@ class Main extends Component {
             {
                 return (
                     <div className = "answer">
-                        Sorry, the correct answer is {questions_array[this.state.current_q]['answer']}
-                        Final Score: {this.state.score}
+                        <h4>Sorry, the correct answer is {questions_array[this.state.current_q]['answer']}</h4>
+                        <h4>Final Score: {this.state.score}</h4>
                     </div>)
             }
             else
             {
                 return (
                     <div className = "answer">
-                        Sorry, the correct answer is {questions_array[this.state.current_q]['answer']}
+                        <h4>Sorry, the correct answer is {questions_array[this.state.current_q]['answer']}</h4>
                         <this.DisplayNext />
                     </div>)
             }
@@ -164,7 +187,10 @@ class Main extends Component {
     render() {
         return <>
             <div>
-                <this.DisplayQuestion />
+                <div className = 'qArea'>
+                     <p>Question {this.state.current_q + 1} :</p>
+                    <this.DisplayQuestion />
+                </div>
                 <this.DisplayOptions />
 
                 {this.state.user_choice_check ? <div> <this.DisplaySubmit /></div> : <div></div> }
