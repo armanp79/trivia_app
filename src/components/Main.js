@@ -11,8 +11,11 @@ class Main extends Component {
             score : 0,
             user_choice : null,
             user_choice_check : false,
-            submit_clicked : false
+            submit_clicked : false,
+            classNames : ['choicesbtn','choicesbtn','choicesbtn','choicesbtn']
         };
+
+        let updatedClass = [];
 
         this.submitRef = React.createRef();
         this.optionRef1 = React.createRef();
@@ -49,7 +52,11 @@ class Main extends Component {
 
 
     handleSubmit () {
-        this.setState({submit_clicked : true})
+        this.checkAnswer();
+        this.setState({
+            submit_clicked : true,
+            classNames : this.updatedClass
+        })
         this.submitRef.current.setAttribute("disabled", "disabled");
         this.optionRef1.current.setAttribute("disabled", "disabled");
         this.optionRef2.current.setAttribute("disabled", "disabled");
@@ -61,7 +68,7 @@ class Main extends Component {
     handleNext () {
         this.setState((state) => {
             return {current_q: state.current_q + 1, user_choice_check : false,
-                submit_clicked : false};
+                submit_clicked : false, classNames: ['choicesbtn','choicesbtn','choicesbtn','choicesbtn']};
           });
           this.submitRef.current.removeAttribute("disabled");
           this.optionRef1.current.removeAttribute("disabled");
@@ -84,24 +91,24 @@ class Main extends Component {
 
     DisplayOptions () {
         return (
-            <div>
+            <div className = "a1">
                 <div className = "a1">
-                    <button ref = {this.optionRef1} className="choicesbtn" onClick={() => this.handleChoice(0)}>
+                    <button ref = {this.optionRef1} className={this.state.classNames[0]} onClick={() => this.handleChoice(0)}>
                     {questions_array[this.state.current_q]['choices'][0]}
                     </button>
                 
 
-                    <button ref = {this.optionRef2} className="choicesbtn" onClick={() => this.handleChoice(1)}>
+                    <button ref = {this.optionRef2} className={this.state.classNames[1]} onClick={() => this.handleChoice(1)}>
                     {questions_array[this.state.current_q]['choices'][1]}
                     </button>
                 </div>
 
                 <div className = "a2">
-                    <button ref = {this.optionRef3} className="choicesbtn" onClick={() => this.handleChoice(2)}>
+                    <button ref = {this.optionRef3} className={this.state.classNames[2]} onClick={() => this.handleChoice(2)}>
                     {questions_array[this.state.current_q]['choices'][2]}
                     </button>
 
-                    <button ref = {this.optionRef4} className="choicesbtn" onClick={() => this.handleChoice(3)}>
+                    <button ref = {this.optionRef4} className={this.state.classNames[3]} onClick={() => this.handleChoice(3)}>
                     {questions_array[this.state.current_q]['choices'][3]}
                     </button>
 
@@ -133,7 +140,19 @@ class Main extends Component {
         )
     }
 
+    checkAnswer () {
+        if (questions_array[this.state.current_q]['choices'][this.state.user_choice] === questions_array[this.state.current_q]['answer'])
+        {
+            this.updatedClass[this.state.user_choice] = 'right'
+        }
+        else
+        {
+            this.updatedClass[this.state.user_choice] = 'wrong' 
+        }
+    }
+
     DisplayAnswer () {
+        this.updatedClass = this.state.classNames
         if (this.state.submit_clicked === false)
         {
             return ( <div></div> )
@@ -179,6 +198,7 @@ class Main extends Component {
                     </div>)
             }
         }
+        
     }
 
 
