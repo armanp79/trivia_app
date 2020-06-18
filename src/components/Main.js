@@ -34,22 +34,11 @@ class Main extends Component {
         this.handleNext = this.handleNext.bind(this)
         
     }
-    
-    /*
-    async componentDidMount() {
-        const url = 'http://localhost:3000/api/getQuestion';
-        const response = await fetch(url);
-        this.data = await response.json();
-        console.log(this.data);
-    }
-    */
 
     handleChoice(props) {
         this.setState({user_choice_check : true})
         this.state.user_choice = props
     }
-
-
 
     handleSubmit () {
         this.checkAnswer();
@@ -76,9 +65,6 @@ class Main extends Component {
           this.optionRef3.current.removeAttribute("disabled");
           this.optionRef4.current.removeAttribute("disabled");
     }
-
-
-
 
 
     DisplayQuestion () {
@@ -117,7 +103,6 @@ class Main extends Component {
             
         )
     }
-
 
 
     DisplaySubmit () {
@@ -200,7 +185,6 @@ class Main extends Component {
         }
         
     }
-
 
 
 
