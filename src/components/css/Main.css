@@ -98,6 +98,8 @@ cursor: auto;
     padding: 5px 5px;
     margin-top: 10px;
     margin-bottom: 50px;
+    min-width: 500px;
+    max-width: 900px;
 
     
 }

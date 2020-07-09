@@ -1,3 +1,8 @@
+This is a simple web app that asks the user a few trivia questions and then transfers BEAR crypto tokens from the adventure API to the user.
+
+The user must have metamask installed in order for this app to work. 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
